@@ -10,3 +10,11 @@ def send_pos_sms(doc, method):
             message = frappe.render_template(pos_sms_msg, context)
             numbers = [doc.contact_mobile]
             send_sms(numbers, message)
+
+@frappe.whitelist()
+def get_customer_loyalty_points(customer, loyalty_program):
+    from erpnext.accounts.party import get_dashboard_info
+    return get_dashboard_info("Customer", customer, loyalty_program)
+
+def test_fn():
+    return True

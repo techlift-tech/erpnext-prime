@@ -25,6 +25,7 @@ app_include_js = "/assets/erpnext_prime/js/erpnext_prime.js"
 
 # include js in page
 # page_js = {"page" : "public/js/file.js"}
+page_js = {"point-of-sale" : "public/js/point_of_sale.js"}
 
 # include js in doctype views
 # doctype_js = {"doctype" : "public/js/doctype.js"}
