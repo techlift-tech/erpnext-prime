@@ -76,6 +76,14 @@ class PaymentNew extends Payment{
                 read_only: 1
             },
             {
+                fieldtype: "Int",
+                fieldname: "max_redeemable",
+                label: __("Max Redeem Allowed"),
+                depends_on: "redeem_loyalty_points",
+                default: me.frm.doc.redeem_loyalty_points,
+                read_only: 1
+            },
+            {
                 fieldtype: "Column Break",
             },
             {
@@ -220,6 +228,37 @@ class PaymentNew extends Payment{
             me.update_sales_man();
             me.events.submit_form();
         });
+    }
+
+    get_loyalty_points(){
+        var self = this
+        frappe.call({
+            method: "erpnext_prime.sales_invoice.sales_invoice_extend.get_customer_loyalty_points",
+            args: {
+                customer: self.frm.doc.customer,
+                loyalty_program: self.frm.doc.loyalty_program
+            },
+            callback: function(data){
+                if (data && data.message && data.message.length == 1) {
+                    var loyalty_points = data.message[0].loyalty_points
+
+                    if(loyalty_points){
+                        self.dialog.set_value("current_loyalty_points", loyalty_points)
+                    }
+                }
+            }
+        })
+    }
+
+    update_loyalty_points() {
+        if (this.dialog.get_value("redeem_loyalty_points")) {
+            this.dialog.set_value("loyalty_points", this.frm.doc.loyalty_points);
+            this.dialog.set_value("loyalty_amount", this.frm.doc.loyalty_amount);
+            this.update_payment_amount();
+            this.show_paid_amount();
+            this.dialog.set_value("max_redeemable", this.frm.doc.redeem_loyalty_points);
+            this.get_loyalty_points();
+        }
     }
 }
 
