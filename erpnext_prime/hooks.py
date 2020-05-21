@@ -29,7 +29,10 @@ page_js = {"point-of-sale" : "public/js/point_of_sale.js"}
 
 # include js in doctype views
 # doctype_js = {"doctype" : "public/js/doctype.js"}
-doctype_js = {"Stock Entry" : "public/js/stock_entry.js"}
+doctype_js = {
+        "Stock Entry" : "public/js/stock_entry.js",
+        "Item Price": "public/js/item_price.js"
+}
 # doctype_list_js = {"doctype" : "public/js/doctype_list.js"}
 # doctype_tree_js = {"doctype" : "public/js/doctype_tree.js"}
 # doctype_calendar_js = {"doctype" : "public/js/doctype_calendar.js"}
@@ -82,10 +85,10 @@ doctype_js = {"Stock Entry" : "public/js/stock_entry.js"}
 # ---------------
 # Hook on document methods and events
 doc_events = {
-    "Sales Invoice": {
-        "on_submit": "erpnext_prime.sales_invoice.sales_invoice_extend.send_pos_sms"
-    }
-}
+        "Sales Invoice": {
+            "on_submit": "erpnext_prime.sales_invoice.sales_invoice_extend.send_pos_sms"
+            }
+        }
 # doc_events = {
 # 	"*": {
 # 		"on_update": "method",
