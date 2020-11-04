@@ -13,7 +13,7 @@ frappe.ui.form.on('Purchase Order Item', {
 			}).then(function(prices){
 				if(prices.length >= 1){
 					purchase_order_entry_doc.mrp = prices[0].price_list_rate
-					frm.refresh()
+					frm.refresh_field("items")
 				}
 			})
 		}
